@@ -1,37 +1,39 @@
-import { Stack } from "@mui/material";
+import { Stack, Button, Typography } from "@mui/material";
 import { categories } from "../utils/constants";
 
 function Sidebar({ selectedCategory, setSelectedCategory }) {
   return (
     <Stack
-      direction='row'
+      direction="row"
       sx={{
         overflowY: "auto",
         height: {
-          sx: "auto",
+          xs: "auto",
           md: "95%",
         },
         flexDirection: { md: "column" },
+        padding: { xs: "1rem", md: "0" },
       }}
     >
       {categories.map((category) => (
-        <button
+        <Button
           key={category.name}
-          className='category-btn'
           onClick={() => setSelectedCategory(category.name)}
-          style={{
-            outline: "none",
-            border: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "5px",
-            background: category.name === selectedCategory && "#282828",
+          sx={{
+            justifyContent: "flex-start",
+            backgroundColor: category.name === selectedCategory ? "#282828" : "transparent",
             color: "#f1f1f1",
+            width: "100%",
+            borderRadius: "8px",
+            padding: "10px",
+            "&:hover": {
+              backgroundColor: "#444444",
+            },
           }}
         >
-          <span>{category.icon}</span>
-          <span>{category.name}</span>
-        </button>
+          <span style={{ marginRight: "5px" }}>{category.icon}</span>
+          <Typography variant="body1">{category.name}</Typography>
+        </Button>
       ))}
     </Stack>
   );

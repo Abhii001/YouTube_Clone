@@ -2,14 +2,18 @@ import { Stack, Box } from "@mui/material";
 import { VideoCard, ChannelCard } from "./";
 import CardSkeleton from "./CardSkeleton";
 
-function Videos({ videos, direction }) {
-  if (!videos?.length) return <CardSkeleton direction={direction} />;
+function Videos({ videos, direction = "row" }) {
+  // If there are no videos, display a skeleton loader
+  if (!videos?.length) {
+    return <CardSkeleton direction={direction} />;
+  }
+
   return (
     <Stack
-      direction={direction || "row"}
-      flexWrap='wrap'
-      justifyContent='center'
-      alignItems='center'
+      direction={direction}
+      flexWrap="wrap"
+      justifyContent="center"
+      alignItems="center"
       gap={2}
     >
       {videos.map((item, index) => (

@@ -8,18 +8,18 @@ import {
   VideoDetail,
   SearchFeed,
 } from "./components";
+
 const App = () => {
   return (
     <Router>
-      <Box sx={{ backgroundColor: "hsl(0, 0%, 7%)" }}>
+      <Box sx={{ backgroundColor: "hsl(0, 0%, 7%)", minHeight: "100vh" }}>
         <Navbar />
 
         <Routes>
-          <Route path='/' element={<Feed />} />
-
-          <Route path='/video/:id' element={<VideoDetail />} />
-          <Route path='/channel/:id' element={<ChannelDetail />} />
-          <Route path='/search/:searchTerm' element={<SearchFeed />} />
+          <Route path="/" element={<Feed />} />
+          <Route path="/video/:id" element={<VideoDetail />} />
+          <Route path="/channel/:id" element={<ChannelDetail />} />
+          <Route path="/search/:searchTerm" element={<SearchFeed />} />
         </Routes>
       </Box>
     </Router>

@@ -1,17 +1,17 @@
 import { Stack, Skeleton, Card, CardMedia, CardContent } from "@mui/material";
 
-const CardSkeleton = ({ direction }) => {
-  const skeleton = [1, 2, 3, 4, 5, 6];
+const CardSkeleton = ({ direction = "row" }) => {
+  const skeletonCount = 6; // Number of skeletons to display
 
   return (
     <Stack
-      direction={direction || "row"}
-      flexWrap='wrap'
-      justifyContent='center'
-      alignItems='center'
+      direction={direction}
+      flexWrap="wrap"
+      justifyContent="center"
+      alignItems="center"
       gap={2}
     >
-      {skeleton.map((index) => (
+      {Array.from({ length: skeletonCount }).map((_, index) => (
         <Card
           key={index}
           sx={{
@@ -24,15 +24,15 @@ const CardSkeleton = ({ direction }) => {
           <CardMedia>
             <Skeleton
               sx={{ bgcolor: "#282828" }}
-              variant='rectancular'
-              width='100%'
-              height='150px'
+              variant="rectangular" // Corrected from 'rectancular' to 'rectangular'
+              width="100%"
+              height="150px"
             />
           </CardMedia>
 
           <CardContent>
-            <Skeleton sx={{ bgcolor: "#282828" }} variant='text' />
-            <Skeleton sx={{ bgcolor: "#282828" }} variant='text' />
+            <Skeleton sx={{ bgcolor: "#282828" }} variant="text" />
+            <Skeleton sx={{ bgcolor: "#282828" }} variant="text" />
           </CardContent>
         </Card>
       ))}

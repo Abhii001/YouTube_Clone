@@ -16,6 +16,9 @@ function VideoCard({
     snippet,
   },
 }) {
+  const videoLink = videoId ? `/video/${videoId}` : demoVideoUrl;
+  const channelLink = snippet?.channelId ? `/channel/${snippet.channelId}` : demoChannelUrl;
+  
   return (
     <Card
       sx={{
@@ -24,29 +27,33 @@ function VideoCard({
         borderRadius: 0,
       }}
     >
-      <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+      <Link to={videoLink}>
         <CardMedia
-          image={snippet?.thumbnails?.high?.url}
-          alt={snippet?.title}
+          component="img"
+          image={snippet?.thumbnails?.high?.url || demoThumbnailUrl}
+          alt={snippet?.title || demoVideoTitle}
           sx={{
             width: "100%",
             height: 150,
+            objectFit: "cover",
           }}
         />
       </Link>
 
       <CardContent sx={{ backgroundColor: "hsl(0, 0%, 7%)", height: "106px" }}>
-        <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
-          <Typography variant='subtitle1' fontWeight='bold' color='#f1f1f1'>
-            {snippet?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
+        <Link to={videoLink}>
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+            color="#f1f1f1"
+            noWrap
+            sx={{ overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}
+          >
+            {snippet?.title || demoVideoTitle}
           </Typography>
         </Link>
-        <Link
-          to={
-            snippet?.channelId ? `/channel/${snippet?.channelId}` : demoVideoUrl
-          }
-        >
-          <Typography variant='subtitle2' fontWeight='bold' color='gray'>
+        <Link to={channelLink}>
+          <Typography variant="subtitle2" fontWeight="bold" color="gray" display="flex" alignItems="center">
             {snippet?.channelTitle || demoChannelTitle}
             <CheckCircle sx={{ fontSize: 12, color: "gray", ml: "5px" }} />
           </Typography>

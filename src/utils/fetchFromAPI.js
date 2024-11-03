@@ -1,20 +1,31 @@
-
 import axios from "axios";
 
-const BASE_URL = 'https://youtube-v31.p.rapidapi.com'
+// Base URL for the YouTube API
+const BASE_URL = 'https://youtube-v31.p.rapidapi.com';
 
+// Common request options
 const options = {
-  url: BASE_URL,
+  headers: {
+    'X-RapidAPI-Key': import.meta.env.VITE_API_KEY, // Using environment variable for security
+    'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
+  },
   params: {
     maxResults: '50',
   },
-  headers: {
-    'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
-    'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
-  }
 };
 
-export const fetchFromAPI = async(url) =>{
-  const {data} =  await axios.get(`${BASE_URL}/${url}`,options)
-  return data;
-} 
+/**
+ * Fetches data from the YouTube API.
+ * @param {string} endpoint - The API endpoint to fetch data from.
+ * @returns {Promise<Object>} - The data retrieved from the API.
+ * @throws {Error} - Throws an error if the request fails.
+ */
+export const fetchFromAPI = async (endpoint) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/${endpoint}`, options);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data from API:", error);
+    throw error;
+  }
+};

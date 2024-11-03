@@ -4,9 +4,15 @@ import { Link } from "react-router-dom";
 import { demoProfilePicture } from "../utils/constants";
 
 function ChannelCard({ channelDetail, marginTop }) {
+  const {
+    id: { channelId },
+    snippet,
+    statistics,
+  } = channelDetail || {};
+
   return (
     <Stack
-      direction='column'
+      direction="column"
       sx={{
         boxShadow: "none",
         borderRadius: "20px",
@@ -15,13 +21,7 @@ function ChannelCard({ channelDetail, marginTop }) {
         marginTop,
       }}
     >
-      <Link
-        to={`${
-          channelDetail?.id.channelId
-            ? `/channel/${channelDetail?.id?.channelId}`
-            : ``
-        }`}
-      >
+      <Link to={channelId ? `/channel/${channelId}` : "#"}>
         <CardContent
           sx={{
             display: "flex",
@@ -33,50 +33,47 @@ function ChannelCard({ channelDetail, marginTop }) {
           }}
         >
           <CardMedia
-            image={
-              channelDetail?.snippet?.thumbnails?.high?.url ||
-              demoProfilePicture
-            }
-            alt={channelDetail?.snippet?.title}
-            sx={{ borderRadius: "50%", height: "180px", width: "180px" }}
+            image={snippet?.thumbnails?.high?.url || demoProfilePicture}
+            alt={snippet?.title}
+            sx={{
+              borderRadius: "50%",
+              height: "180px",
+              width: "180px",
+              objectFit: "cover", // Maintain aspect ratio
+            }}
           />
 
-          <Typography variant='h6'>
-            {channelDetail?.snippet?.title}
+          <Typography variant="h6" sx={{ display: "flex", alignItems: "center" }}>
+            {snippet?.title}
             <CheckCircle sx={{ fontSize: 12, color: "gray", ml: "5px" }} />
           </Typography>
 
           <Stack
             direction={{ xs: "column", sm: "row" }}
-            alignItems='center'
-            textAlign='center'
+            alignItems="center"
+            textAlign="center"
             sx={{
               color: "gray",
               flexWrap: "wrap",
               gap: "1rem",
             }}
           >
-            <Typography>{channelDetail?.snippet?.customUrl}</Typography>
-            {channelDetail?.statistics?.subscriberCount && (
+            <Typography>{snippet?.customUrl}</Typography>
+            {statistics?.subscriberCount && (
               <Typography>
-                {parseInt(
-                  channelDetail?.statistics?.subscriberCount
-                ).toLocaleString("en-US")}{" "}
+                {parseInt(statistics.subscriberCount).toLocaleString("en-US")}{" "}
                 Subscribers
               </Typography>
             )}
-            {channelDetail?.statistics?.videoCount && (
+            {statistics?.videoCount && (
               <Typography>
-                {parseInt(channelDetail?.statistics?.videoCount).toLocaleString(
-                  "en-US"
-                )}{" "}
-                {""}
-                Vidoes
+                {parseInt(statistics.videoCount).toLocaleString("en-US")}{" "}
+                Videos
               </Typography>
             )}
           </Stack>
 
-          {channelDetail?.snippet?.description && (
+          {snippet?.description && (
             <Typography
               sx={{
                 color: "gray",
@@ -85,7 +82,7 @@ function ChannelCard({ channelDetail, marginTop }) {
                 width: "fit-content",
               }}
             >
-              {channelDetail?.snippet?.description}
+              {snippet.description}
             </Typography>
           )}
         </CardContent>

@@ -1,40 +1,22 @@
-import { useState, useEffect } from "react";
-import { Box, Stack } from "@mui/material";
-
+import { useState } from "react";
+import { Box, Stack, CircularProgress, Typography } from "@mui/material";
 import { Sidebar, Videos } from "./";
-import { fetchFromAPI } from "../utils/fetchFromAPI";
+import useFetchVideos from "./useFetchVideos";
 
-function Feed() {
+const Feed = () => {
   const [selectedCategory, setSelectedCategory] = useState("New Videos");
 
-  const [videos, setVidoes] = useState([]);
+  // Use custom hook to fetch videos based on selected category
+  const { data: videos, error, loading } = useFetchVideos(`search?part=snippet&q=${selectedCategory}`);
 
-  useEffect(() => {
-    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`).then((data) =>
-      setVidoes(data.items)
-    );
-  }, [selectedCategory]);
-
+  // Rendering logic based on loading and error states
   return (
-    <Stack
-      sx={{
-        flexDirection: {
-          sx: "column",
-          md: "row",
-        },
-      }}
-    >
+    <Stack sx={{ flexDirection: { xs: "column", md: "row" } }}>
       <Box
         sx={{
-          height: {
-            sx: "auto",
-            md: "92vh",
-          },
+          height: { xs: "auto", md: "92vh" },
           borderRight: "1px solid hsl(0, 0%, 18.92%)",
-          px: {
-            sx: 0,
-            md: 2,
-          },
+          px: { xs: 0, md: 2 },
         }}
       >
         <Sidebar
@@ -52,10 +34,16 @@ function Feed() {
           mr: "5px",
         }}
       >
-        <Videos videos={videos} />
+        {loading ? (
+          <CircularProgress />
+        ) : error ? (
+          <Typography color="error">{error.message || "An error occurred"}</Typography> // Ensure to render a string message
+        ) : (
+          <Videos videos={videos} />
+        )}
       </Box>
     </Stack>
   );
-}
+};
 
 export default Feed;

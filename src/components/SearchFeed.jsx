@@ -6,37 +6,35 @@ import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 function SearchFeed() {
   const [selectedCategory, setSelectedCategory] = useState("Popular");
-
-  const [videos, setVidoes] = useState([]);
-
+  const [videos, setVideos] = useState([]); // Fixed typo from "setVidoes" to "setVideos"
   const { searchTerm } = useParams();
 
   useEffect(() => {
-    fetchFromAPI(`search?part=snippet&q=${searchTerm}`).then((data) =>
-      setVidoes(data.items)
-    );
+    const fetchVideos = async () => {
+      try {
+        const data = await fetchFromAPI(`search?part=snippet&q=${searchTerm}`);
+        setVideos(data.items);
+      } catch (error) {
+        console.error("Failed to fetch videos:", error);
+      }
+    };
+
+    if (searchTerm) {
+      fetchVideos();
+    }
   }, [searchTerm]);
 
   return (
     <Stack
       sx={{
-        flexDirection: {
-          sx: "column",
-          md: "row",
-        },
+        flexDirection: { xs: "column", md: "row" },
       }}
     >
       <Box
         sx={{
-          height: {
-            sx: "auto",
-            md: "92vh",
-          },
+          height: { xs: "auto", md: "92vh" },
           borderRight: "1px solid hsl(0, 0%, 18.92%)",
-          px: {
-            sx: 0,
-            md: 2,
-          },
+          px: { xs: 0, md: 2 },
         }}
       >
         <Sidebar
@@ -48,10 +46,10 @@ function SearchFeed() {
       <Box
         p={2}
         sx={{
-          overflow: "auto",
+          overflowY: "auto",
           height: "90vh",
           flex: 2,
-          mr: "5px",
+          mr: { md: "5px" },
         }}
       >
         <Videos videos={videos} />
