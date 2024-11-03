@@ -12,7 +12,7 @@ const useFetchVideos = (query) => {
       try {
         const response = await axios.get(`https://youtube-v31.p.rapidapi.com/${query}`, {
           headers: {
-            'x-rapidapi-key': 'YOUR_API_KEY',
+            'x-rapidapi-key': 'd90c21b331msh2812c8770c24ff0p13bc88jsn657392f33ca4',
             'x-rapidapi-host': 'youtube-v31.p.rapidapi.com',
           },
         });

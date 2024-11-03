@@ -28,17 +28,7 @@ The YouTube clone application is built using the following technologies:
 
 To run the YouTube clone application locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/thekarthikr/youtube-clone.git`
+1. Clone the repository: `git clone https://github.com/Abhii001/YouTube_Clone.git`
 2. Navigate to the project directory: `cd youtube-clone`
 3. Install the dependencies: `npm install`
-4. Obtain an API key from the YouTube v3 API and Rapid API.
-5. Create a `.env` file in the root directory and add the following:
-  `VITE_RAPID_API_KEY = YOUR API KEY`
-6. Start the development server: `npm run dev`
-7. Open your browser and visit `http://localhost:3000` to see the application running.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-
+4. Start the development server: `npm run dev`

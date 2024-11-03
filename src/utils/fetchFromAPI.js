@@ -6,7 +6,7 @@ const BASE_URL = 'https://youtube-v31.p.rapidapi.com';
 // Common request options
 const options = {
   headers: {
-    'X-RapidAPI-Key': import.meta.env.VITE_API_KEY, // Using environment variable for security
+    'X-RapidAPI-Key': import.meta.env.VITE_API_KEY, 
     'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
   },
   params: {
